@@ -1,0 +1,38 @@
+{
+  "name": "@mkabumattar/notebook",
+  "version": "5.0.0",
+  "type": "module",
+  "license": "MIT",
+  "homepage": "https://notebook.mkabumattar.com/",
+  "author": {
+    "name": "Mohammad Abu Mattar",
+    "email": "mohammad.khaled@outlook.com",
+    "url": "https://mkabumattar.github.io/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MKAbuMattar/notebook.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MKAbuMattar/notebook/issues"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "fmt": "prettier --write ."
+  },
+  "dependencies": {
+    "astro": "5.16.6"
+  },
+  "devDependencies": {
+    "@types/node": "25.0.3",
+    "prettier": "3.7.4",
+    "prettier-plugin-astro": "0.14.1",
+    "typescript": "5.9.3"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

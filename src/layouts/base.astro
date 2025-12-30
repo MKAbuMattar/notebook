@@ -1,0 +1,263 @@
+---
+import '@/styles/global.css';
+import Navbar from '@/components/navbar/index.astro';
+import Modal from '@/components/modal/index.astro';
+import InfoBody from '@/components/modal/InfoBody.astro';
+import ShareBody from '@/components/modal/ShareBody.astro';
+import LibraryBody from '@/components/modal/LibraryBody.astro';
+import GalleryBody from '@/components/modal/GalleryBody.astro';
+import EditorStats from '@/components/editor-stats/index.astro';
+import ScrollTopIcon from '@/components/icons/ScrollTopIcon.astro';
+import modalConfig from '@/configs/modal.json';
+
+interface Props {
+  title: string;
+  mode: 'plain' | 'markdown';
+}
+
+const {title, mode} = Astro.props;
+const config = modalConfig[mode];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#3b82f6" />
+    <link rel="apple-touch-icon" href="/logo192.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap"
+      rel="stylesheet"
+    />
+    {
+      mode === 'markdown' && (
+        <script
+          is:inline
+          src="https://cdn.jsdelivr.net/npm/marked@17.0.1/lib/marked.umd.min.js"
+        />
+      )
+    }
+
+    <script
+      is:inline
+      src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"
+    ></script>
+    <slot name="head" />
+    <script is:inline src="/js/qrcode.min.js"></script>
+    <script
+      is:inline
+      src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.12.1/dist/html2pdf.bundle.min.js"
+    ></script>
+  </head>
+  <body data-config={JSON.stringify(config)}>
+    <!-- Progress Bar -->
+    <div
+      id="progress-bar"
+      class="progress-bar"
+      style="width: 0%"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div class="paper" contenteditable="plaintext-only" spellcheck></div>
+
+    <Modal id={config.reset.id} title={config.reset.title}>
+      <p slot="body">{config.reset.description}</p>
+      <Fragment slot="footer">
+        <button class="modal-btn modal-cancel" id={config.reset.cancelId}>
+          {config.reset.cancelText}
+        </button>
+        <button class="modal-btn modal-confirm" id={config.reset.confirmId}>
+          {config.reset.confirmText}
+        </button>
+      </Fragment>
+    </Modal>
+
+    <Modal
+      id={config.info.id}
+      title={config.info.title}
+      className={config.info.className}
+    >
+      <InfoBody mode={mode} slot="body" />
+      <Fragment slot="footer">
+        <button class="modal-btn modal-cancel" id={config.info.closeId}>
+          {config.info.closeText}
+        </button>
+      </Fragment>
+    </Modal>
+
+    <Navbar mode={mode} />
+
+    <Modal id={config.share.id} title={config.share.title}>
+      <ShareBody slot="body" />
+      <Fragment slot="footer">
+        <button class="modal-btn modal-cancel" id={config.share.closeId}>
+          {config.share.closeText}
+        </button>
+      </Fragment>
+    </Modal>
+
+    <Modal id={config.library.id} title={config.library.title}>
+      <LibraryBody slot="body" />
+      <Fragment slot="footer">
+        <button class="modal-btn modal-cancel" id={config.library.closeId}>
+          {config.library.closeText}
+        </button>
+      </Fragment>
+    </Modal>
+
+    <Modal id={config.rename.id} title={config.rename.title}>
+      <div slot="body" class="rename-body">
+        <label for="rename-input" class="modal-label">Title</label>
+        <input
+          type="text"
+          id="rename-input"
+          class="modal-input"
+          placeholder="Enter notebook title..."
+        />
+        <label for="tags-input" class="modal-label" style="margin-top: 15px;"
+          >Tags (comma separated)</label
+        >
+        <input
+          type="text"
+          id="tags-input"
+          class="modal-input"
+          placeholder="work, ideas, journal..."
+        />
+      </div>
+      <Fragment slot="footer">
+        <button class="modal-btn modal-cancel" id={config.rename.cancelId}>
+          {config.rename.cancelText}
+        </button>
+        <button class="modal-btn modal-confirm" id={config.rename.confirmId}>
+          {config.rename.confirmText}
+        </button>
+      </Fragment>
+    </Modal>
+
+    <Modal id={config.delete_note.id} title={config.delete_note.title}>
+      <p slot="body">{config.delete_note.description}</p>
+      <Fragment slot="footer">
+        <button class="modal-btn modal-cancel" id={config.delete_note.cancelId}>
+          {config.delete_note.cancelText}
+        </button>
+        <button
+          class="modal-btn modal-confirm"
+          id={config.delete_note.confirmId}
+        >
+          {config.delete_note.confirmText}
+        </button>
+      </Fragment>
+    </Modal>
+
+    <Modal id={config.gallery.id} title={config.gallery.title}>
+      <GalleryBody slot="body" />
+      <Fragment slot="footer">
+        <button class="modal-btn modal-cancel" id={config.gallery.closeId}>
+          {config.gallery.closeText}
+        </button>
+      </Fragment>
+    </Modal>
+
+    <Modal id={config.lock.id} title={config.lock.title}>
+      <div slot="body" class="lock-body">
+        <p class="modal-desc">{config.lock.description}</p>
+        <label for="lock-input" class="modal-label">Password</label>
+        <input
+          type="password"
+          id="lock-input"
+          class="modal-input"
+          placeholder="Min 4 characters..."
+        />
+      </div>
+      <Fragment slot="footer">
+        <button class="modal-btn modal-cancel" id={config.lock.cancelId}
+          >{config.lock.cancelText}</button
+        >
+        <button
+          class="modal-btn modal-confirm"
+          id={config.lock.confirmId}
+          style="background: #ef6c00;">{config.lock.confirmText}</button
+        >
+      </Fragment>
+    </Modal>
+
+    <Modal id={config.unlock.id} title={config.unlock.title}>
+      <div slot="body" class="unlock-body">
+        <p class="modal-desc">{config.unlock.description}</p>
+        <label for="unlock-input" class="modal-label">Password</label>
+        <input
+          type="password"
+          id="unlock-input"
+          class="modal-input"
+          placeholder="Enter password..."
+        />
+      </div>
+      <Fragment slot="footer">
+        <button class="modal-btn modal-cancel" id={config.unlock.cancelId}
+          >{config.unlock.cancelText}</button
+        >
+        <button
+          class="modal-btn modal-confirm"
+          id={config.unlock.confirmId}
+          style="background: #2e7d32;">{config.unlock.confirmText}</button
+        >
+      </Fragment>
+    </Modal>
+
+    <Modal id={config.wiki_create.id} title={config.wiki_create.title}>
+      <div slot="body" class="wiki-create-body">
+        <p class="modal-desc">{config.wiki_create.description}</p>
+        <div
+          class="wiki-target-preview"
+          id="wiki-target-preview"
+          style="font-weight: bold; margin-bottom: 20px; color: var(--text-color);"
+        >
+        </div>
+      </div>
+      <Fragment slot="footer">
+        <button class="modal-btn modal-cancel" id={config.wiki_create.cancelId}
+          >{config.wiki_create.cancelText}</button
+        >
+        <button
+          class="modal-btn modal-confirm"
+          id={config.wiki_create.confirmId}
+          style="background: #3b82f6;">{config.wiki_create.confirmText}</button
+        >
+      </Fragment>
+    </Modal>
+
+    <EditorStats />
+
+    <button
+      id="scrollTopBtnStandalone"
+      class="scroll-top-btn-standalone"
+      title="Scroll to top"
+    >
+      <ScrollTopIcon />
+    </button>
+
+    <input
+      type="file"
+      id="globalImgInput"
+      accept="image/*"
+      style="display: none;"
+    />
+
+    <script>
+      import {initUI} from '@/scripts/ui.js';
+      const config = JSON.parse(document.body?.dataset?.config || '{}');
+      initUI(config);
+    </script>
+
+    <slot />
+  </body>
+</html>

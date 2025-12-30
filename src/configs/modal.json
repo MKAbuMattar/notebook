@@ -1,0 +1,172 @@
+{
+  "plain": {
+    "mode": "plain",
+    "reset": {
+      "id": "modalOverlay",
+      "title": "Reset Notebook",
+      "description": "Are you sure you want to reset and clear all content?",
+      "confirmText": "Reset",
+      "cancelText": "Cancel",
+      "confirmId": "modalConfirm",
+      "cancelId": "modalCancel"
+    },
+    "info": {
+      "id": "infoModalOverlay",
+      "title": "Welcome to Notebook",
+      "closeText": "Got it!",
+      "closeId": "infoModalClose",
+      "className": "info-modal"
+    },
+    "storage": {
+      "hash": "plaintextHash",
+      "dir": "plaintextDir"
+    },
+    "share": {
+      "id": "shareModalOverlay",
+      "title": "Share Notebook",
+      "closeText": "Close",
+      "closeId": "shareModalClose"
+    },
+    "library": {
+      "id": "libraryModalOverlay",
+      "title": "My Notebooks",
+      "closeText": "Close",
+      "closeId": "libraryModalClose"
+    },
+    "gallery": {
+      "id": "galleryModalOverlay",
+      "title": "Paper Gallery",
+      "closeText": "Close",
+      "closeId": "galleryModalClose"
+    },
+    "rename": {
+      "id": "renameModalOverlay",
+      "title": "Rename Notebook",
+      "confirmText": "Rename",
+      "cancelText": "Cancel",
+      "confirmId": "renameConfirm",
+      "cancelId": "renameCancel"
+    },
+    "lock": {
+      "id": "lockModalOverlay",
+      "title": "Lock Notebook",
+      "description": "Set a password to encrypt this note. You will not be able to recover it without this password.",
+      "confirmText": "Lock Now",
+      "cancelText": "Cancel",
+      "confirmId": "lockConfirm",
+      "cancelId": "lockCancel"
+    },
+    "unlock": {
+      "id": "unlockModalOverlay",
+      "title": "Unlock Notebook",
+      "description": "This note is encrypted. Please enter the password to view its content.",
+      "confirmText": "Unlock",
+      "cancelText": "Cancel",
+      "confirmId": "unlockConfirm",
+      "cancelId": "unlockCancel"
+    },
+    "delete_note": {
+      "id": "deleteModalOverlay",
+      "title": "Delete Notebook",
+      "description": "Are you sure you want to delete this notebook? This action cannot be undone.",
+      "confirmText": "Delete",
+      "cancelText": "Cancel",
+      "confirmId": "deleteConfirm",
+      "cancelId": "deleteCancel"
+    },
+    "wiki_create": {
+      "id": "wikiCreateModalOverlay",
+      "title": "Create New Note",
+      "description": "This note doesn't exist yet. Would you like to create it?",
+      "confirmText": "Create & Go",
+      "cancelText": "Cancel",
+      "confirmId": "wikiCreateConfirm",
+      "cancelId": "wikiCreateCancel"
+    }
+  },
+  "markdown": {
+    "mode": "markdown",
+    "reset": {
+      "id": "modalOverlay",
+      "title": "Reset Notebook",
+      "description": "Are you sure you want to reset and clear all content?",
+      "confirmText": "Reset",
+      "cancelText": "Cancel",
+      "confirmId": "modalConfirm",
+      "cancelId": "modalCancel"
+    },
+    "info": {
+      "id": "infoModalOverlay",
+      "title": "Welcome to Notebook",
+      "closeText": "Got it!",
+      "closeId": "infoModalClose",
+      "className": "info-modal"
+    },
+    "storage": {
+      "hash": "markdownHash",
+      "dir": "markdownDir"
+    },
+    "share": {
+      "id": "shareModalOverlay",
+      "title": "Share Notebook",
+      "closeText": "Close",
+      "closeId": "shareModalClose"
+    },
+    "library": {
+      "id": "libraryModalOverlay",
+      "title": "My Notebooks",
+      "closeText": "Close",
+      "closeId": "libraryModalClose"
+    },
+    "gallery": {
+      "id": "galleryModalOverlay",
+      "title": "Paper Gallery",
+      "closeText": "Close",
+      "closeId": "galleryModalClose"
+    },
+    "rename": {
+      "id": "renameModalOverlay",
+      "title": "Rename Notebook",
+      "confirmText": "Rename",
+      "cancelText": "Cancel",
+      "confirmId": "renameConfirm",
+      "cancelId": "renameCancel"
+    },
+    "lock": {
+      "id": "lockModalOverlay",
+      "title": "Lock Notebook",
+      "description": "Set a password to encrypt this note. You will not be able to recover it without this password.",
+      "confirmText": "Lock Now",
+      "cancelText": "Cancel",
+      "confirmId": "lockConfirm",
+      "cancelId": "lockCancel"
+    },
+    "unlock": {
+      "id": "unlockModalOverlay",
+      "title": "Unlock Notebook",
+      "description": "This note is encrypted. Please enter the password to view its content.",
+      "confirmText": "Unlock",
+      "cancelText": "Cancel",
+      "confirmId": "unlockConfirm",
+      "cancelId": "unlockCancel"
+    },
+    "delete_note": {
+      "id": "deleteModalOverlay",
+      "title": "Delete Notebook",
+      "description": "Are you sure you want to delete this notebook? This action cannot be undone.",
+      "confirmText": "Delete",
+      "cancelText": "Cancel",
+      "confirmId": "deleteConfirm",
+      "cancelId": "deleteCancel"
+    },
+    "wiki_create": {
+      "id": "wikiCreateModalOverlay",
+      "title": "Create New Note",
+      "description": "This note doesn't exist yet. Would you like to create it?",
+      "confirmText": "Create & Go",
+      "cancelText": "Cancel",
+      "confirmId": "wikiCreateConfirm",
+      "cancelId": "wikiCreateCancel"
+    }
+  }
+}

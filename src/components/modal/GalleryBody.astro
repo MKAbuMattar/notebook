@@ -1,0 +1,136 @@
+---
+const themes = [
+  {
+    id: 'classic',
+    name: 'Classic',
+    color: '#ffffff',
+    description: 'Ruled/lined paper for everyday notes.',
+  },
+  {
+    id: 'graph',
+    name: 'Scientific',
+    color: '#ffffff',
+    pattern: 'grid',
+    description: 'Grid paper lines for diagrams and calculations.',
+  },
+  {
+    id: 'sepia',
+    name: 'Vintage',
+    color: '#f4ecd8',
+    description: 'A sepia, aged-parchment look for timeless thoughts.',
+  },
+  // { id: 'blueprint', name: 'Blueprint', color: '#004b87', description: 'Blue background with white grid lines for developers.' },
+  {
+    id: 'journal',
+    name: 'Handwritten Journal',
+    color: '#f0ede9',
+    description: 'Authentic notebook with a handcrafted touch.',
+  },
+];
+---
+
+<div class="gallery-container">
+  <p class="gallery-description">
+    Choose a paper style for your notebook. Your selection will be saved
+    automatically.
+  </p>
+
+  <div class="theme-grid">
+    {
+      themes.map((theme) => (
+        <button class="theme-card" data-theme={theme.id} title={theme.name}>
+          <div
+            class={`theme-preview ${theme.id} ${theme.pattern ? 'has-pattern' : ''}`}
+            style={`background-color: ${theme.color};`}
+          >
+            {theme.pattern === 'grid' && <div class="grid-pattern" />}
+          </div>
+          <div class="theme-info">
+            <span class="theme-name">{theme.name}</span>
+            <span class="theme-desc">{theme.description}</span>
+          </div>
+        </button>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .gallery-container {
+    padding: 10px 0;
+  }
+
+  .gallery-description {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.7;
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  .theme-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
+  }
+
+  .theme-card {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    background: var(--bg-color);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    text-align: left;
+  }
+
+  .theme-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-color: #3b82f6;
+  }
+
+  .theme-card.active {
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.05);
+  }
+
+  .theme-preview {
+    height: 100px;
+    width: 100%;
+    position: relative;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .grid-pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+    background-size: 15px 15px;
+  }
+
+  .theme-info {
+    padding: 12px;
+  }
+
+  .theme-name {
+    display: block;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    margin-bottom: 4px;
+  }
+
+  .theme-desc {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-color);
+    opacity: 0.6;
+    line-height: 1.3;
+  }
+</style>

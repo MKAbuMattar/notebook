@@ -1,0 +1,430 @@
+---
+import SwitchPlainIcon from '@/components/icons/SwitchPlainIcon.astro';
+import SwitchMarkdownIcon from '@/components/icons/SwitchMarkdownIcon.astro';
+import ShareIcon from '@/components/icons/ShareIcon.astro';
+import ZipIcon from '@/components/icons/ZipIcon.astro';
+import LinkIcon from '@/components/icons/LinkIcon.astro';
+import TableIcon from '@/components/icons/TableIcon.astro';
+import LockIcon from '@/components/icons/LockIcon.astro';
+import StatsIcon from '@/components/icons/StatsIcon.astro';
+
+interface Props {
+  mode: 'plain' | 'markdown';
+}
+
+const {mode} = Astro.props;
+---
+
+<div class="info-body">
+  <div class="info-tabs">
+    <button class="info-tab active" data-tab="general">General</button>
+    <button class="info-tab" data-tab="markdown">Markdown</button>
+    <button class="info-tab" data-tab="plain">Plain Text</button>
+  </div>
+
+  <div id="info-content-general" class="info-tab-content active">
+    <div class="info-section intro">
+      <p>
+        Hi! You've found your new space for notes. It's a simple notebook that
+        lives entirely in your browser. Since everything you type is saved
+        automatically and tucked into the URL, your work stays private and
+        follows you wherever you go all without needing an account.
+      </p>
+    </div>
+
+    <div class="info-section">
+      <label>Productivity & Navigation</label>
+      <div class="feature-list">
+        <div class="feature-item">
+          <LinkIcon size={18} />
+          <div>
+            <strong>Note Linking:</strong>
+            <span
+              >Connect your thoughts using <code>[[Title]]</code> syntax to create
+              a personal wiki.</span
+            >
+          </div>
+        </div>
+        <div class="feature-item">
+          <TableIcon size={18} />
+          <div>
+            <strong>Auto Table of Contents:</strong>
+            <span
+              >A toggleable side panel that maps out your headers for easy
+              navigation.</span
+            >
+          </div>
+        </div>
+        <div class="feature-item">
+          <StatsIcon size={18} />
+          <div>
+            <strong>Reading Stats:</strong>
+            <span
+              >Track your progress with real-time word counts and estimated
+              reading time.</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <label>Security & Backups</label>
+      <div class="feature-list">
+        <div class="feature-item">
+          <LockIcon size={18} />
+          <div>
+            <strong>Private Encryption:</strong>
+            <span
+              >Lock individual notes with a password. Your data is encrypted
+              locally using AES-GCM.</span
+            >
+          </div>
+        </div>
+        <div class="feature-item">
+          <ZipIcon size={18} />
+          <div>
+            <strong>Bulk Export (ZIP):</strong>
+            <span
+              >Export all your notes at once in a single ZIP archive for easy
+              backups.</span
+            >
+          </div>
+        </div>
+        <div class="feature-item">
+          <ShareIcon size={18} />
+          <div>
+            <strong>Smart Links:</strong>
+            <span
+              >Grab a link to share the exact state of your page with anyone.</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <label>Key Features</label>
+      <ul class="bullet-list">
+        <li>
+          <strong>Auto-save:</strong> Your content is kept safe in your browser and
+          synced with the URL.
+        </li>
+        <li>
+          <strong>PWA Support:</strong> Install the app on your phone or desktop for
+          an offline-ready experience.
+        </li>
+        <li>
+          <strong>RTL Support:</strong> Switch text direction for languages like Arabic.
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="info-content-markdown" class="info-tab-content">
+    <div class="info-section">
+      <div class="mode-header">
+        <SwitchMarkdownIcon size={24} />
+        <label>Markdown Mode</label>
+      </div>
+      <p class="section-desc">
+        Add personality to your notes with headers, lists, and links that look
+        great in real-time.
+      </p>
+    </div>
+
+    <div class="info-section markdown-guide">
+      <label>Writing Guide</label>
+      <div class="code-block">
+        <div class="code-line">
+          <span class="code-comment"># Main Header</span>
+        </div>
+        <div class="code-line">
+          <span class="code-comment">## Sub Header</span>
+        </div>
+        <div class="code-line">**Bold text** and *italic text*</div>
+        <div class="code-line">- List item 1</div>
+        <div class="code-line">- List item 2</div>
+        <div class="code-line">[Link Text](https://example.com)</div>
+        <div class="code-line">
+          <span class="code-comment">[[Wiki Link to Note]]</span>
+        </div>
+        <div class="code-line">
+          <span class="code-comment">[[Target | Alias]]</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="info-content-plain" class="info-tab-content">
+    <div class="info-section">
+      <div class="mode-header">
+        <SwitchPlainIcon size={24} />
+        <label>Plain Text Mode</label>
+      </div>
+      <p class="section-desc">
+        Perfect for raw notes, code snippets, or simple thoughts where you want
+        zero distractions.
+      </p>
+    </div>
+
+    <div class="info-section">
+      <label>When to use Plain Text?</label>
+      <ul class="bullet-list">
+        <li>Drafting quick ideas without formatting.</li>
+        <li>Storing code snippets or terminal logs.</li>
+        <li>Maximum performance and simplicity.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="info-section data-yours">
+    <label>Your Data is Yours</label>
+    <p class="section-desc">
+      I don't use servers. Your notes stay on your device. It's just you and
+      your browser.
+    </p>
+  </div>
+
+  <div class="info-footer">
+    <p>
+      © 2020<script is:inline>
+        new Date().getFullYear() > 2020 &&
+          document.write(' - ' + new Date().getFullYear());
+      </script> · Created by <a
+        href="https://mkabumattar.com"
+        target="_blank"
+        rel="noopener noreferrer">Mohammad Abu Mattar</a
+      >
+    </p>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    const tabs = document.querySelectorAll('.info-tab');
+    const contents = document.querySelectorAll('.info-tab-content');
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+
+        // Update Tabs
+        tabs.forEach((t) => t.classList.toggle('active', t === tab));
+
+        // Update Contents
+        contents.forEach((content) => {
+          content.classList.toggle(
+            'active',
+            content.id === `info-content-${target}`,
+          );
+        });
+      });
+    });
+  })();
+</script>
+
+<style is:global>
+  .info-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px 0;
+    text-align: left;
+  }
+
+  .info-tabs {
+    display: flex;
+    gap: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 2px;
+    margin-bottom: 5px;
+  }
+
+  body[data-theme='dark'] .info-tabs {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .info-tab {
+    padding: 8px 12px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-color);
+    opacity: 0.6;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .info-tab:hover {
+    opacity: 1;
+  }
+
+  .info-tab.active {
+    opacity: 1;
+    border-bottom-color: #3b82f6;
+    color: #3b82f6;
+  }
+
+  .info-tab-content {
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .info-tab-content.active {
+    display: flex;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(5px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .info-section.intro p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    margin: 0;
+  }
+
+  .info-section label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 2px;
+  }
+
+  .section-desc {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin: 0;
+  }
+
+  .mode-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-color);
+  }
+
+  .mode-header label {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+
+  .feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .feature-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .feature-item div {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: var(--text-color);
+  }
+
+  .feature-item strong {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .feature-item span {
+    opacity: 0.8;
+  }
+
+  .bullet-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .bullet-list li {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: var(--text-color);
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+  }
+
+  .bullet-list li::before {
+    content: '•';
+    color: #3b82f6;
+    font-weight: bold;
+  }
+
+  .code-block {
+    background: #1e1e1e;
+    padding: 14px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: #d4d4d4;
+    overflow-x: auto;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .code-comment {
+    color: #6a9955;
+  }
+
+  .info-footer {
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 0.75rem;
+    color: var(--text-color);
+    opacity: 0.6;
+    text-align: center;
+  }
+
+  .info-footer a {
+    color: #3b82f6;
+    text-decoration: none;
+  }
+
+  .info-footer a:hover {
+    text-decoration: underline;
+  }
+
+  .data-yours {
+    background: rgba(59, 130, 246, 0.05);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px dashed rgba(59, 130, 246, 0.3);
+  }
+
+  body[data-theme='dark'] .data-yours {
+    background: rgba(59, 130, 246, 0.1);
+  }
+</style>
