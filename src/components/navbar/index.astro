@@ -1,0 +1,60 @@
+---
+import menuConfig from '@/configs/menu.json';
+import InfoIcon from '@/components/icons/InfoIcon.astro';
+import SwitchMarkdownIcon from '@/components/icons/SwitchMarkdownIcon.astro';
+import SwitchPlainIcon from '@/components/icons/SwitchPlainIcon.astro';
+import RtlIcon from '@/components/icons/RtlIcon.astro';
+import ShareIcon from '@/components/icons/ShareIcon.astro';
+import ScrollTopIcon from '@/components/icons/ScrollTopIcon.astro';
+import DownloadIcon from '@/components/icons/DownloadIcon.astro';
+import ResetIcon from '@/components/icons/ResetIcon.astro';
+import LibraryIcon from '@/components/icons/LibraryIcon.astro';
+import PdfIcon from '@/components/icons/PdfIcon.astro';
+import GalleryIcon from '@/components/icons/GalleryIcon.astro';
+import ImageIcon from '@/components/icons/ImageIcon.astro';
+
+interface Props {
+  mode: keyof typeof menuConfig;
+}
+
+const {mode} = Astro.props;
+
+const icons = {
+  InfoIcon,
+  SwitchMarkdownIcon,
+  SwitchPlainIcon,
+  RtlIcon,
+  ShareIcon,
+  ScrollTopIcon,
+  DownloadIcon,
+  ResetIcon,
+  LibraryIcon,
+  PdfIcon,
+  GalleryIcon,
+  ImageIcon,
+};
+
+const menuItems = menuConfig[mode];
+---
+
+<nav class="bottom-navbar">
+  {
+    menuItems.map((item) => {
+      const Icon = icons[item.icon as keyof typeof icons];
+
+      if (item.element === 'a') {
+        return (
+          <a href={item.href} class={item.className} title={item.title}>
+            <Icon class={item.iconClass} />
+          </a>
+        );
+      }
+
+      return (
+        <button class={item.className} id={item.id} title={item.title}>
+          <Icon class={item.iconClass} />
+        </button>
+      );
+    })
+  }
+</nav>

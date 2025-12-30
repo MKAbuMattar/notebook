@@ -1,0 +1,90 @@
+---
+
+---
+
+<div class="editor-stats-bar" id="editorStatsBar">
+  <div class="stat-item">
+    <span class="stat-label">Words:</span>
+    <span class="stat-value" id="statsWordCount">0</span>
+  </div>
+  <div class="stat-separator"></div>
+  <div class="stat-item">
+    <span class="stat-label">Chars:</span>
+    <span class="stat-value" id="statsCharCount">0</span>
+  </div>
+  <div class="stat-separator"></div>
+  <div class="stat-item">
+    <span class="stat-label">Read:</span>
+    <span class="stat-value" id="statsReadTime">0 min</span>
+  </div>
+  <div id="statsTagsWrapper" style="display: none;">
+    <div class="stat-separator"></div>
+    <div class="stat-item">
+      <span class="stat-label">Tags:</span>
+      <span class="stat-value" id="statsTags"></span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .editor-stats-bar {
+    position: fixed;
+    bottom: 6.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1.25rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 9999px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    z-index: 2000;
+    font-family: var(--font-handwritten, 'Inter', sans-serif);
+    font-size: 0.8rem;
+    color: #666;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    user-select: none;
+    opacity: 0;
+  }
+
+  .editor-stats-bar.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .stat-label {
+    opacity: 0.6;
+    font-weight: 500;
+  }
+
+  .stat-value {
+    font-weight: 600;
+    color: #333;
+  }
+
+  .stat-separator {
+    width: 1px;
+    height: 12px;
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .editor-stats-bar {
+      bottom: 4.8rem;
+      font-size: 0.75rem;
+      padding: 0.4rem 1rem;
+    }
+  }
+</style>

@@ -1,0 +1,192 @@
+---
+import BoldIcon from '@/components/icons/BoldIcon.astro';
+import ItalicIcon from '@/components/icons/ItalicIcon.astro';
+import ListIcon from '@/components/icons/ListIcon.astro';
+import QuoteIcon from '@/components/icons/QuoteIcon.astro';
+import CodeIcon from '@/components/icons/CodeIcon.astro';
+import InlineCodeIcon from '@/components/icons/InlineCodeIcon.astro';
+import TableIcon from '@/components/icons/TableIcon.astro';
+import LinkIcon from '@/components/icons/LinkIcon.astro';
+import ImageIcon from '@/components/icons/ImageIcon.astro';
+---
+
+<div class="markdown-toolbar" id="markdownToolbar">
+  <button type="button" data-format="bold" title="Bold (Ctrl+B)">
+    <BoldIcon size={18} />
+  </button>
+  <button type="button" data-format="italic" title="Italic (Ctrl+I)">
+    <ItalicIcon size={18} />
+  </button>
+  <div class="separator"></div>
+  <button type="button" data-format="h1" title="Heading 1">
+    <span style="font-weight: bold; font-size: 1.1rem;">H1</span>
+  </button>
+  <button type="button" data-format="h2" title="Heading 2">
+    <span style="font-weight: bold; font-size: 0.9rem;">H2</span>
+  </button>
+  <div class="separator"></div>
+  <button type="button" data-format="list" title="Bullet List">
+    <ListIcon size={18} />
+  </button>
+  <button type="button" data-format="quote" title="Quote">
+    <QuoteIcon size={18} />
+  </button>
+  <button type="button" data-format="code" title="Code Block">
+    <CodeIcon size={18} />
+  </button>
+  <button type="button" data-format="inlinecode" title="Inline Code">
+    <InlineCodeIcon size={18} />
+  </button>
+  <button type="button" data-format="table" title="Table Template">
+    <TableIcon size={18} />
+  </button>
+  <button type="button" data-format="link" title="Link">
+    <LinkIcon size={18} />
+  </button>
+  <button type="button" id="toolbarImgBtn" title="Insert Image">
+    <ImageIcon size={18} />
+  </button>
+</div>
+
+<script is:inline>
+  (function () {
+    const toolbar = document.getElementById('markdownToolbar');
+    // More robust article detection
+    let article = window.article || document.querySelector('.paper');
+
+    if (!toolbar) {
+      console.error('MarkdownToolbar: Toolbar element not found');
+      return;
+    }
+
+    // Wait for article if not immediately available
+    if (!article) {
+      const checkInterval = setInterval(() => {
+        article = window.article || document.querySelector('.paper');
+        if (article) {
+          clearInterval(checkInterval);
+          initToolbar();
+        }
+      }, 100);
+
+      // Timeout after 5 seconds
+      setTimeout(() => clearInterval(checkInterval), 5000);
+    } else {
+      initToolbar();
+    }
+
+    function initToolbar() {
+      const formats = {
+        bold: {prefix: '**', suffix: '**'},
+        italic: {prefix: '_', suffix: '_'},
+        h1: {prefix: '# ', suffix: '', block: true},
+        h2: {prefix: '## ', suffix: '', block: true},
+        list: {prefix: '- ', suffix: '', block: true, multiline: true},
+        quote: {prefix: '> ', suffix: '', block: true, multiline: true},
+        code: {prefix: '```\n', suffix: '\n```', block: true},
+        inlinecode: {prefix: '`', suffix: '`'},
+        table: {
+          prefix:
+            '\n| Header 1 | Header 2 | Header 3 |\n| -------- | -------- | -------- |\n| Item 1 | Item 2 | Item 3 |\n| Item 4 | Item 5 | Item 6 |\n',
+          suffix: '',
+          block: true,
+        },
+        link: {prefix: '[', suffix: '](url)'},
+        image: {prefix: '![', suffix: '](url)'},
+      };
+
+      const toolbarImgBtn = document.getElementById('toolbarImgBtn');
+      if (toolbarImgBtn) {
+        toolbarImgBtn.addEventListener('mousedown', (e) => {
+          e.preventDefault();
+          window.triggerImageUpload();
+        });
+      }
+
+      // processImage and input logic moved to BaseLayout.astro
+
+      // Use mousedown to prevent toolbar from taking focus from article
+      toolbar.addEventListener('mousedown', (e) => {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+
+        e.preventDefault(); // Critical: prevents loss of selection/focus
+
+        const formatType = btn.dataset.format;
+        const config = formats[formatType];
+        if (!config) return;
+
+        // Ensure we are in edit mode
+        if (article.contentEditable === 'false') {
+          // If in preview mode, we can't really format yet as selection is gone
+          // But we can trigger click to switch to edit mode
+          article.click();
+          return;
+        }
+
+        applyFormat(config);
+      });
+
+      function applyFormat(config) {
+        const selection = window.getSelection();
+        if (!selection || !selection.rangeCount) return;
+
+        const range = selection.getRangeAt(0);
+        if (!article.contains(range.commonAncestorContainer)) return;
+
+        const selectedText = range.toString();
+
+        let textToInsert;
+        if (config.multiline && selectedText.includes('\n')) {
+          // Process each line for lists/quotes
+          textToInsert = selectedText
+            .split('\n')
+            .map((line) => (line.trim() ? config.prefix + line : line))
+            .join('\n');
+        } else {
+          textToInsert =
+            config.prefix + (selectedText || 'text') + config.suffix;
+        }
+
+        window.insertTextAtCursor(textToInsert);
+
+        const event = new Event('input', {bubbles: true});
+        article.dispatchEvent(event);
+      }
+
+      // Keyboard shortcuts
+      article.addEventListener('keydown', (e) => {
+        if (e.ctrlKey || e.metaKey) {
+          if (e.key === 'b') {
+            e.preventDefault();
+            applyFormat(formats.bold);
+          } else if (e.key === 'i') {
+            e.preventDefault();
+            applyFormat(formats.italic);
+          }
+        }
+      });
+
+      // Hide toolbar when not editing (in preview mode)
+      function updateVisibility() {
+        const isEditable =
+          article.contentEditable === 'true' ||
+          article.contentEditable === 'plaintext-only';
+        toolbar.style.opacity = isEditable ? '1' : '0';
+        toolbar.style.pointerEvents = isEditable ? 'auto' : 'none';
+        toolbar.style.transform = isEditable
+          ? 'translateX(-50%) translateY(0)'
+          : 'translateX(-50%) translateY(10px)';
+      }
+
+      const observer = new MutationObserver(updateVisibility);
+      observer.observe(article, {
+        attributes: true,
+        attributeFilter: ['contenteditable'],
+      });
+
+      // Initial check
+      updateVisibility();
+    }
+  })();
+</script>

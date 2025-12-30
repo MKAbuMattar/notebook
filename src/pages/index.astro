@@ -1,0 +1,106 @@
+---
+import BaseLayout from '@/layouts/base.astro';
+import MarkdownToolbar from '@/components/markdown-toolbar/index.astro';
+import ToC from '@/components/toc/index.astro';
+---
+
+<BaseLayout title="Markdown NoteBook" mode="markdown">
+  <MarkdownToolbar />
+  <ToC />
+  <script>
+    const article = window.article;
+
+    // Page specific state
+    let isEditing = true;
+    let rawContent = '';
+
+    // Integration with global NotebookManager
+    window.updateMarkdownPreview = () => {
+      if (!isEditing) {
+        renderMarkdown();
+      }
+    };
+
+    // Override global content getter
+    window.getNoteContent = () => rawContent || article.innerText;
+
+    if (article) {
+      // Load initial raw content
+      const activeNote = window.notebookManager.notebooks.find(
+        (n: any) => n.id === window.notebookManager.activeId,
+      );
+      if (activeNote && !activeNote.encrypted && activeNote.content) {
+        window.decompress(activeNote.content).then((content) => {
+          rawContent = content;
+        });
+      }
+
+      article.addEventListener('click', () => {
+        if (!isEditing) {
+          isEditing = true;
+          article.contentEditable = 'plaintext-only';
+          article.innerText = rawContent;
+          article.focus();
+        }
+      });
+
+      // Sync rawContent on input
+      article.addEventListener('input', () => {
+        if (isEditing) {
+          rawContent = article.innerText;
+        }
+      });
+
+      article.addEventListener('blur', () => {
+        isEditing = false;
+        renderMarkdown();
+      });
+    }
+
+    function renderMarkdown() {
+      if (article && typeof marked !== 'undefined') {
+        // --- Configure Wiki-Link Extension ---
+        if (!window.markedWikiConfigured) {
+          const wikiLinkExtension = {
+            name: 'wikiLink',
+            level: 'inline',
+            start(src: string) {
+              return src.indexOf('[[');
+            },
+            tokenizer(src: string, tokens: any) {
+              const rule = /^\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/;
+              const match = rule.exec(src);
+              if (match) {
+                return {
+                  type: 'wikiLink',
+                  raw: match[0],
+                  title: match[1].trim(),
+                  alias: match[2] ? match[2].trim() : null,
+                };
+              }
+            },
+            renderer(token: any) {
+              const displayTitle = token.alias || token.title;
+              return `<a class="wiki-link" data-title="${token.title}" href="javascript:void(0)">${displayTitle}</a>`;
+            },
+          };
+          marked.use({extensions: [wikiLinkExtension]});
+          window.markedWikiConfigured = true;
+        }
+
+        rawContent = article.innerText;
+        article.innerHTML = marked.parse(rawContent);
+        article.contentEditable = 'false';
+
+        // Update Table of Contents if available
+        if (window.updateToCItems) {
+          window.updateToCItems();
+        }
+      }
+    }
+
+    if (window.article && window.updateDirectionIcon) {
+      window.updateDirectionIcon(window.article.getAttribute('dir') || 'ltr');
+    }
+  </script>
+</BaseLayout>

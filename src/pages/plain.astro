@@ -1,0 +1,14 @@
+---
+import BaseLayout from '@/layouts/base.astro';
+---
+
+<BaseLayout title="Plain Text NoteBook" mode="plain">
+  <script>
+    const article = window.article;
+
+    // Sync RTL icon on startup
+    if (article && window.updateDirectionIcon) {
+      window.updateDirectionIcon(article.getAttribute('dir') || 'ltr');
+    }
+  </script>
+</BaseLayout>

@@ -1,0 +1,44 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  className?: string;
+}
+
+const {id, title, className = ''} = Astro.props;
+---
+
+<div class={`modal-overlay ${className}`} id={id}>
+  <div class={`modal ${className}`}>
+    <h2>{title}</h2>
+    <div class="modal-content">
+      <slot name="body" />
+    </div>
+    <div class="modal-buttons">
+      <slot name="footer" />
+    </div>
+  </div>
+</div>
+
+<script is:inline define:vars={{id}}>
+  (function () {
+    const modal = document.getElementById(id);
+    if (!modal) return;
+
+    const closeModal = () => {
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    };
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    const buttons = modal.querySelectorAll('.modal-cancel, #infoModalClose');
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', closeModal);
+    });
+  })();
+</script>

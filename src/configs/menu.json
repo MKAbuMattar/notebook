@@ -1,0 +1,134 @@
+{
+  "plain": [
+    {
+      "id": "infoBtn",
+      "className": "nav-btn",
+      "title": "About",
+      "icon": "InfoIcon",
+      "element": "button"
+    },
+    {
+      "id": "libraryBtn",
+      "className": "nav-btn",
+      "title": "My Notebooks",
+      "icon": "LibraryIcon",
+      "element": "button"
+    },
+    {
+      "className": "nav-btn switch-button",
+      "title": "Switch to Markdown",
+      "icon": "SwitchMarkdownIcon",
+      "element": "a",
+      "href": "/"
+    },
+    {
+      "id": "rtlBtn",
+      "className": "nav-btn",
+      "title": "Toggle text direction",
+      "icon": "RtlIcon",
+      "element": "button",
+      "iconClass": "rtl-icon"
+    },
+    {
+      "id": "shareBtn",
+      "className": "nav-btn",
+      "title": "Share note",
+      "icon": "ShareIcon",
+      "element": "button"
+    },
+    {
+      "id": "downloadBtn",
+      "className": "nav-btn",
+      "title": "Download as Text",
+      "icon": "DownloadIcon",
+      "element": "button"
+    },
+    {
+      "id": "downloadPdfBtn",
+      "className": "nav-btn",
+      "title": "Download as PDF",
+      "icon": "PdfIcon",
+      "element": "button"
+    },
+    {
+      "id": "galleryBtn",
+      "className": "nav-btn",
+      "title": "Paper Gallery",
+      "icon": "GalleryIcon",
+      "element": "button"
+    },
+    {
+      "id": "resetBtn",
+      "className": "nav-btn",
+      "title": "Reset and clear notebook",
+      "icon": "ResetIcon",
+      "element": "button"
+    }
+  ],
+  "markdown": [
+    {
+      "id": "infoBtn",
+      "className": "nav-btn",
+      "title": "About",
+      "icon": "InfoIcon",
+      "element": "button"
+    },
+    {
+      "id": "libraryBtn",
+      "className": "nav-btn",
+      "title": "My Notebooks",
+      "icon": "LibraryIcon",
+      "element": "button"
+    },
+    {
+      "className": "nav-btn switch-button",
+      "title": "Switch to Plain Text",
+      "icon": "SwitchPlainIcon",
+      "element": "a",
+      "href": "/plain"
+    },
+    {
+      "id": "rtlBtn",
+      "className": "nav-btn",
+      "title": "Toggle text direction",
+      "icon": "RtlIcon",
+      "element": "button",
+      "iconClass": "rtl-icon"
+    },
+    {
+      "id": "shareBtn",
+      "className": "nav-btn",
+      "title": "Share note",
+      "icon": "ShareIcon",
+      "element": "button"
+    },
+    {
+      "id": "downloadBtn",
+      "className": "nav-btn",
+      "title": "Download as markdown",
+      "icon": "DownloadIcon",
+      "element": "button"
+    },
+    {
+      "id": "downloadPdfBtn",
+      "className": "nav-btn",
+      "title": "Download as PDF",
+      "icon": "PdfIcon",
+      "element": "button"
+    },
+    {
+      "id": "galleryBtn",
+      "className": "nav-btn",
+      "title": "Paper Gallery",
+      "icon": "GalleryIcon",
+      "element": "button"
+    },
+    {
+      "id": "resetBtn",
+      "className": "nav-btn",
+      "title": "Reset and clear notebook",
+      "icon": "ResetIcon",
+      "element": "button"
+    }
+  ]
+}
